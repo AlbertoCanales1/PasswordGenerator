@@ -1,81 +1,58 @@
-// Assignment Code
-var generateBtn = document.querySelector("#generate");
+function generate() { // generates the function
 
-// Write password to the #password input
-function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+  let password = (""); // assigning password to an empty string
 
-  passwordText.value = password;
+  let length = +document.getElementById("length").value;      
+
+  let lowerCase = document.getElementById("lowercase").checked;
+  let upperCase = document.getElementById("uppercase").checked;
+  let symbol = document.getElementById("symbols").checked;
+  let number = document.getElementById("numbers").checked;
+
+
+
+  ///Password Generate
+  if (lowerCase + upperCase + symbol + number <= 0) //if statement checks if checkboxes are unchecked 
+      return;
+
+  for (let i = 0; i < length; i++) { // password generator
+
+      const r = generater(0, 3);
+      if (lowerCase && r === 0) {
+          password += generateRandomLowerCase();
+      } else if (upperCase && r === 1) {
+          password += generateRandomUpperCase();
+      } else if (symbol && r === 2) {
+          password += generateRandomSymbol();
+      } else if (number && r === 3) {
+          password += generater(0, 9);
+      } else {
+          i--;
+      }
+
+  }
+
+  document.getElementById("result").textContent = password;
 
 }
 
-// Add event listener to generate button
-//generateBtn.addEventListener("click", writePassword);
-//generateEl.addEventListener("click",()=>{
-  //const length = lengthEl.value;
-
-  //console.log(length);
-//})
+generate();
 
 
-//DOM Elements
-const resultEl = document.getElementById('result');
-const lengthEl = document.getElementById('length');
-const uppercaseEl = document.getElementById('uppercase');
-const lowercaseEl = document.getElementById('lowercase');
-const numbersEl = document.getElementById('numbers');
-const symbolsEl = document.getElementById('symbols');
-const generateEl = document.getElementById('generate');
-const clipboardEl = document.getElementById('clipboard');
-
-//Add event listener to generate button
-generateEl.addEventListener("click", () => {
-  const length = lengthEl.value;
-
-  console.log(length);
-});
-
-
-const RandomFunc = {
-  lower: randomLCase,
-  upper: randomUCase,
-  Number: randomNums,
-  Symbol: randomSym,
-};
-
-
-
-
-//Function generator---------------------------------------------------------------
-
-///--------------Lower Case
-
-function randomLCase(){             // This function generates random Lower case letters
-  return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+//Generator Functions
+function generateRandomLowerCase() {             
+  return String.fromCharCode(generater(97, 122));
 }
 
-console.log(randomLCase()); //This console logs lower case letters
-
-
-///--------------Upper Case
-
-function randomUCase(){             // This function generates random Upper case letters
-  return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+function generateRandomUpperCase() {
+  return String.fromCharCode(generater(65, 90));
 }
-console.log(randomUCase()); //This console logs Upper case letters
 
-///--------------Numbers
-
-function randomNums(){             // This function generates random Numbers
-  return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+function generateRandomSymbol() {
+  const symbols = "~*$%@#^&!?*'-=/,.{}()[]<>";
+  return symbols[generater(0, symbols.length - 1)];
 }
-console.log(randomNums()); //This console logs Numbers
 
-///--------------Symbols
-
-function randomSym(){             // This function generates random Symbols
-  const symbols = "!@#$%^&*(){}/?.,><"; // This string contains symbols that will be randomly generated
-  return symbols[Math.floor(Math.random() * symbols.length)]; //This command is used to communicate how many symbols there are
+function generater(min = 0, max = 1) {
+  return Math.floor(Math.random() * (max + 1 - min) + min);
 }
-console.log(randomSym()); //This console logs Symbols
