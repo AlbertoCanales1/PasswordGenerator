@@ -11,10 +11,43 @@ function writePassword() {
 }
 
 // Add event listener to generate button
-generateBtn.addEventListener("click", writePassword);
+//generateBtn.addEventListener("click", writePassword);
+//generateEl.addEventListener("click",()=>{
+  //const length = lengthEl.value;
+
+  //console.log(length);
+//})
 
 
-//Function generator--
+//DOM Elements
+const resultEl = document.getElementById('result');
+const lengthEl = document.getElementById('length');
+const uppercaseEl = document.getElementById('uppercase');
+const lowercaseEl = document.getElementById('lowercase');
+const numbersEl = document.getElementById('numbers');
+const symbolsEl = document.getElementById('symbols');
+const generateEl = document.getElementById('generate');
+const clipboardEl = document.getElementById('clipboard');
+
+//Add event listener to generate button
+generateEl.addEventListener("click", () => {
+  const length = lengthEl.value;
+
+  console.log(length);
+});
+
+
+const RandomFunc = {
+  lower: randomLCase,
+  upper: randomUCase,
+  Number: randomNums,
+  Symbol: randomSym,
+};
+
+
+
+
+//Function generator---------------------------------------------------------------
 
 ///--------------Lower Case
 
